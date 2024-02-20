@@ -1,0 +1,5 @@
+name: SurvivalCore
+main: net.furium.Main
+version: 1.0.0
+api-version: 1.20
+description: A simple survival plugin.
