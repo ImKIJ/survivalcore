@@ -1,7 +1,5 @@
 package net.furium
 
-import gg.flyte.twilight.Twilight
-import gg.flyte.twilight.twilight
 import net.furium.commands.ReloadConfig
 import net.furium.commands.SetSpawnCommand
 import net.furium.commands.Spawn

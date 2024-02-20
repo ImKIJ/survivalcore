@@ -11,15 +11,13 @@ import org.bukkit.event.player.PlayerRespawnEvent
 class SpawnListener : Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        val options = Main.instance.generalConfig.spawn;
-        if(!options.enabled) return;
-
-        event.player.teleport(Util().getSpawnLocation());
-        if(options.sendMessage) {
-            val messages: List<String> = options.messages
-            for (message in messages) {
-                event.player.sendMessage(Component.text(message));
-            }
+        val options = Main.instance.generalConfig.spawn
+        if(!options.enabled) return
+        event.player.teleport(Util().getSpawnLocation())
+        if(!options.sendMessage) return
+        val messages: List<String> = options.messages
+        for (message in messages) {
+            event.player.sendMessage(Component.text(message))
         }
     }
 
