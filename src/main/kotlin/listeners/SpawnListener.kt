@@ -13,17 +13,19 @@ class SpawnListener : Listener {
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val options = Main.instance.generalConfig.spawn
         if(!options.enabled) return
-        event.player.teleport(Util().getSpawnLocation())
+
+        event.player.teleport(Util.spawnLoaction)
         if(!options.sendMessage) return
-        val messages: List<String> = options.messages
-        for (message in messages) {
-            event.player.sendMessage(Component.text(message))
+
+        options.messages.forEach {
+            event.player.sendMessage(Component.text(it))
         }
     }
 
     @EventHandler
     fun onRespawnEvent(event: PlayerRespawnEvent) {
         if(!Main.instance.generalConfig.spawn.enabled) return;
-        event.player.teleport(Util().getSpawnLocation())
+
+        event.player.teleport(Util.spawnLoaction)
     }
 }

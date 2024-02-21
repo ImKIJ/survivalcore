@@ -13,6 +13,7 @@ import revxrsal.commands.bukkit.BukkitCommandHandler
 class Main : JavaPlugin() {
     companion object {
         lateinit var instance: Main
+            private set
     }
 
     lateinit var configManager: ConfigManager
@@ -21,11 +22,16 @@ class Main : JavaPlugin() {
         try {
             instance = this
             configManager = ConfigManager()
+
             generalConfig = configManager.loadConfig("general", General::class.java)!!
             configManager.saveConfig("general", generalConfig, General::class.java)
-            val handler = BukkitCommandHandler.create(this)
-            handler.register(SetSpawnCommand(), ReloadConfig(), Spawn())
+
+            BukkitCommandHandler.create(this).apply {
+                register(SetSpawnCommand(), ReloadConfig(), Spawn())
+            }
+
             this.server.pluginManager.registerEvents(SpawnListener(), this)
+
             this.logger.info("Hello, plugin initiated!")
         } catch(e: Exception) {
             e.printStackTrace()

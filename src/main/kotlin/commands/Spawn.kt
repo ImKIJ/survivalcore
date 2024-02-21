@@ -12,16 +12,16 @@ class Spawn {
 
     @DefaultFor("~")
     fun spawn(sender: Player) {
-        if (Main.instance.generalConfig.spawn.enabled) {
-            val location = Util().getSpawnLocation()
-            sender.teleport(location)
-            if (Main.instance.generalConfig.spawn.sendMessage) {
-                for (message in Main.instance.generalConfig.spawn.messages) {
-                    sender.sendMessage(Component.text(message))
-                }
-            }
-        } else {
-            sender.sendMessage(Component.text("<red>Spawn is not enabled!"))
+        val spawn = Main.instance.generalConfig.spawn
+        if (!spawn.enabled) return
+
+        val location = Util.spawnLoaction
+        sender.teleport(location)
+
+        if (!spawn.sendMessage) return
+
+        spawn.messages.forEach {
+            sender.sendMessage(Component.text(it))
         }
     }
 }
